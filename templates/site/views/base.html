@@ -14,7 +14,7 @@
       rel="stylesheet"
       href="{{url ('templates/site/assets/css/site.css')}}"
     />
-    <title>{% if title} {{title}} {% endif}</title>
+    <title>{% if title%} {{title}} {% endif%}</title>
   </head>
   <body>
     {% include 'topo.html' %} {% block conteudo %} {% endblock %} {% include

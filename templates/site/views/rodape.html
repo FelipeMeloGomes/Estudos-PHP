@@ -7,5 +7,7 @@
       <a href="./sobre-nos" class="nav-link px-2 text-muted">Sobre nós</a>
     </li>
   </ul>
-  <p class="text-center text-muted">&copy; 2022 {{constant('SITE_NOME')}}</p>
+  <p class="text-center text-muted">
+    &copy; {{ "now"|date("Y") }} {{constant('SITE_NOME')}}
+  </p>
 </footer>
