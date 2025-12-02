@@ -1,0 +1,23 @@
+{
+  "name": "fm/blog",
+  "description": "Curso PHP 8",
+  "type": "project",
+  "autoload": {
+    "psr-4": {
+      "sistema\\": "sistema/"
+    },
+    "files": [
+      "sistema/configuracao.php"
+    ]
+  },
+  "authors": [
+    {
+      "name": "Felipe Melo"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=8.0",
+    "pecee/simple-router": "dev-master"
+  }
+}

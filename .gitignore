@@ -1,0 +1,30 @@
+# Composer (sempre ignore o vendor)
+vendor/
+
+# Arquivo de ambiente (NUNCA coloque no Git)
+.env
+.env.*
+
+# Logs e caches
+*.log
+*.cache
+tmp/
+temp/
+.cache/
+
+# Configurações de IDEs
+.vscode/
+.idea/
+
+# Arquivos do PHPUnit
+.phpunit.result.cache
+
+# Arquivos temporários
+*.tmp
+
+# Arquivos do Windows
+Thumbs.db
+Desktop.ini
+
+# macOS (caso use Git via GitHub Desktop ou compartilhe com alguém usando Mac)
+.DS_Store

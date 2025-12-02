@@ -1,0 +1,15 @@
+Options -indexes
+
+# modo reescrita de url Apache
+RewriteEngine On
+
+# definir url base
+RewriteBase /blog
+
+# definir uma condição de reescrita
+RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-l
+
+# regra de reescrita
+RewriteRule ^(.*)$ index.php/$1
