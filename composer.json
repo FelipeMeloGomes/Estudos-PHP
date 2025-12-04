@@ -1,6 +1,6 @@
 {
-  "name": "fm/blog",
-  "description": "Curso PHP 8",
+  "name": "cursophp8",
+  "description": "Curso de PHP 8",
   "type": "project",
   "autoload": {
     "psr-4": {
@@ -12,7 +12,9 @@
   },
   "authors": [
     {
-      "name": "Felipe Melo"
+      "name": "Felipe Melo",
+      "homepage": "https://www.unset.com.br",
+      "role": "Developer"
     }
   ],
   "minimum-stability": "dev",

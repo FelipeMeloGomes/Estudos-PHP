@@ -1,14 +1,16 @@
 <?php
 
+//Arquivo de configuração do sistema
+//define o fuso horario
 date_default_timezone_set('America/Sao_Paulo');
 
-// INFORMAÇÕES DO SISTEMA
-define('SITE_NOME', 'FelipeMelo');
-define('SITE_DESCRICAO', 'Felipe Melo PHP Sistema.');
+//informações do sistema
+define('SITE_NOME', 'UnSet');
+define('SITE_DESCRICAO', 'UnSet - Tecnologia em Sistemas');
 
-// URL DO SISTEMA
-define('URL_DESENVOLVIMENTO', 'localhost');
-define('URL_PRODUCAO', 'felipemelo.com.br');
+//urls do sistema
+define('URL_PRODUCAO', 'https://unset.com.br');
+define('URL_DESENVOLVIMENTO', 'http://localhost/blog');
 
-// URLS ROTAS
 define('URL_SITE', 'blog/');
+
