@@ -5,6 +5,10 @@ require 'vendor/autoload.php';
 
 //require 'rotas.php';
 
-use sistema\Nucleo\Conexao;
+use sistema\Modelo\PostModelo;
 
-$con = Conexao::getInstancia();
+$posts = (new PostModelo())->ler();
+
+foreach ($posts as $post) {
+  echo $post->titulo;
+}
