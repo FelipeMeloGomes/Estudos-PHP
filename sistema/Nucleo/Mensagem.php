@@ -4,15 +4,14 @@ namespace sistema\Nucleo;
 
 /**
  * Classe Mensagem – responsável por exibir as mensagens do sistema.
- * @author Ronaldo Aires <ceo@unset.com.br>
- * @copyright Copyright (c) 2022, UnSet
+ * @author Felipe Melo
  */
 class Mensagem
 {
 
     private $texto;
     private $css;
-    
+
     public function __toString()
     {
         return $this->renderizar();
@@ -84,5 +83,4 @@ class Mensagem
     {
         return filter_var($mensagem, FILTER_SANITIZE_SPECIAL_CHARS);
     }
-
 }

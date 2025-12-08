@@ -8,7 +8,7 @@ use PDOException;
 /**
  * Classe Conexao - Padrão Singleton: Retorna uma instância única de uma classe.
  *
- * @author Ronaldo Aires
+ * @author Felipe Melo
  */
 class Conexao
 {
@@ -31,7 +31,7 @@ class Conexao
                 ]);
             } catch (PDOException $ex) {
                 die("Erro de conexão:: " . $ex->getMessage());
-            }            
+            }
         }
         return self::$instancia;
     }
@@ -40,18 +40,11 @@ class Conexao
      * Construtor do tipo protegido previne que uma nova instância da
      * Classe seja criada através do operador `new` de fora dessa classe.
      */
-    protected function __construct()
-    {
-        
-    }
+    protected function __construct() {}
 
     /**
      * Método clone do tipo privado previne a clonagem dessa instância da classe
      * @return void
      */
-    private function __clone(): void
-    {
-        
-    }
-
+    private function __clone(): void {}
 }

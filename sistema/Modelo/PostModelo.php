@@ -7,35 +7,34 @@ use sistema\Nucleo\Conexao;
 /**
  * Classe PostModelo
  *
- * @author Ronaldo Aires
+ * @author Felipe Melo
  */
 class PostModelo
 {
     public function busca(): array
     {
-        $query = "SELECT * FROM posts WHERE status = 1 ORDER BY id DESC "; 
+        $query = "SELECT * FROM posts WHERE status = 1 ORDER BY id DESC ";
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
-        return $resultado;        
+        return $resultado;
     }
-    
+
     public function buscaPorId(int $id): bool|object
     {
-        $query = "SELECT * FROM posts WHERE id = {$id} "; 
+        $query = "SELECT * FROM posts WHERE id = {$id} ";
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetch();
 
-        return $resultado; 
+        return $resultado;
     }
-    
+
     public function pesquisa(string $busca): array
     {
-        $query = "SELECT * FROM posts WHERE status = 1 AND titulo LIKE '%{$busca}%' "; 
+        $query = "SELECT * FROM posts WHERE status = 1 AND titulo LIKE '%{$busca}%' ";
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
-        return $resultado;        
+        return $resultado;
     }
-    
 }

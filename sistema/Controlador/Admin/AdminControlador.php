@@ -4,10 +4,15 @@ namespace sistema\Controlador\Admin;
 
 use sistema\Nucleo\Controlador;
 
+/**
+ * Classe AdminControlador
+ *
+ * @author Felipe Melo
+ */
 class AdminControlador extends Controlador
 {
   public function __construct()
   {
-    return parent::__construct('templates/admin/views');
+    parent::__construct('templates/admin/views');
   }
 }

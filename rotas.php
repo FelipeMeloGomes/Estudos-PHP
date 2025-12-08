@@ -17,6 +17,12 @@ try {
 
     Router::group(['namespace' => 'Admin'], function () {
         Router::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
+
+        //ADMIN POSTS
+        Router::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');
+
+        //ADMIN CATEGORIAS
+        Router::get(URL_ADMIN . 'categorias/listar', 'AdminCategorias@listar');
     });
 
     Router::start();

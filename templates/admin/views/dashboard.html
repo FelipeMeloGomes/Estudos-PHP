@@ -1,11 +1,18 @@
-{% extends 'base.html' %} {% block corpo %}
+{% extends "base.html" %} {% block corpo %} {% include 'menu.html' %}
 
-<div class="row">
-  <div class="col-lg-3">{% include 'menu.html' %}</div>
-  <div class="col-lg-9">
+<div class="conteudo">
+  {% include 'topo.html' %}
+  <main>
     {% block conteudo %}
-    <h1>Dashboard Bem vindo</h1>
+    <div class="card border-0 shadow-sm">
+      <div class="card-header bg-white border-0">
+        <h5 class="card-title">Dashboard</h5>
+      </div>
+      <div class="card-body">Conteúdo em desenvolvimento</div>
+    </div>
     {% endblock %}
-  </div>
+  </main>
+  {% include 'rodape.html' %}
 </div>
+
 {% endblock %}
