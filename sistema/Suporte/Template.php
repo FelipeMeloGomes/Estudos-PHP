@@ -17,7 +17,7 @@ class Template
     {
         $loader = new \Twig\Loader\FilesystemLoader($diretorio);
         $this->twig = new \Twig\Environment($loader);
-
+        
         $lexer = new Lexer($this->twig, array(
             $this->helpers()
         ));
@@ -30,9 +30,14 @@ class Template
      * @param array $dados
      * @return string
      */
-    public function renderizar(string $view, array $dados): string
+    public function renderizar(string $view, array $dados)
     {
-        return $this->twig->render($view, $dados);
+        try {
+            return $this->twig->render($view, $dados);
+        } catch (\Twig\Error\LoaderError | \Twig\Error\SyntaxError $ex) {
+
+            echo 'Erro:: ' . $ex->getMessage();
+        }
     }
 
     /**

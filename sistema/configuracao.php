@@ -4,13 +4,12 @@
 //define o fuso horario
 date_default_timezone_set('America/Sao_Paulo');
 
-// conexao banco de dados
+//dados de acesso ao banco de dados
 define('DB_HOST', 'localhost');
-define('DB_PORT', '3306');
-define('DB_NAME', 'blog');
-define('DB_USER', 'root');
-define('DB_PASSWORD', '');
-
+define('DB_PORTA', '3306');
+define('DB_NOME', 'blog');
+define('DB_USUARIO', 'root');
+define('DB_SENHA', '');
 
 //informações do sistema
 define('SITE_NOME', 'UnSet');
@@ -21,3 +20,4 @@ define('URL_PRODUCAO', 'https://unset.com.br');
 define('URL_DESENVOLVIMENTO', 'http://localhost/blog');
 
 define('URL_SITE', 'blog/');
+
