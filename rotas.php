@@ -1,23 +1,27 @@
 <?php
 
-use Pecee\SimpleRouter\SimpleRouter;
+use Pecee\SimpleRouter\SimpleRouter as Router;
+use Pecee\SimpleRouter\Exceptions\NotFoundHttpException as Exception;
 use sistema\Nucleo\Helpers;
 
 try {
-    SimpleRouter::setDefaultNamespace('sistema\Controlador');
+    Router::setDefaultNamespace('sistema\Controlador');
 
-SimpleRouter::get(URL_SITE, 'SiteControlador@index');
-SimpleRouter::get(URL_SITE.'sobre-nos', 'SiteControlador@sobre');
-SimpleRouter::get(URL_SITE.'post/{id}', 'SiteControlador@post');
-SimpleRouter::get(URL_SITE.'categoria/{id}', 'SiteControlador@categoria');
-SimpleRouter::post(URL_SITE.'buscar', 'SiteControlador@buscar');
+    Router::get(URL_SITE, 'SiteControlador@index');
+    Router::get(URL_SITE . 'sobre-nos', 'SiteControlador@sobre');
+    Router::get(URL_SITE . 'post/{id}', 'SiteControlador@post');
+    Router::get(URL_SITE . 'categoria/{id}', 'SiteControlador@categoria');
+    Router::post(URL_SITE . 'buscar', 'SiteControlador@buscar');
 
-SimpleRouter::get(URL_SITE.'404', 'SiteControlador@erro404');
+    Router::get(URL_SITE . '404', 'SiteControlador@erro404');
 
-SimpleRouter::start();
+    Router::group(['namespace' => 'Admin'], function () {
+        Router::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
+    });
 
-} catch (Pecee\SimpleRouter\Exceptions\NotFoundHttpException $ex) {
-    if(Helpers::localhost()){
+    Router::start();
+} catch (Exception $ex) {
+    if (Helpers::localhost()) {
         echo $ex->getMessage();
     } else {
         Helpers::redirecionar('404');

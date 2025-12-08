@@ -20,4 +20,4 @@ define('URL_PRODUCAO', 'https://unset.com.br');
 define('URL_DESENVOLVIMENTO', 'http://localhost/blog');
 
 define('URL_SITE', 'blog/');
-
+define('URL_ADMIN', 'blog/admin/');
