@@ -21,8 +21,14 @@ try {
         //ADMIN POSTS
         Router::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');
 
+        //ADMIN POSTS CADASTRAR
+        Router::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
+
         //ADMIN CATEGORIAS
         Router::get(URL_ADMIN . 'categorias/listar', 'AdminCategorias@listar');
+
+        //ADMIN CATEGORIAS CADASTRAR
+        Router::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
     });
 
     Router::start();
