@@ -29,4 +29,15 @@ class AdminPosts extends AdminControlador
         }
         echo $this->template->renderizar('posts/formulario.html', ['categorias' => (new CategoriaModelo())->busca()]);
     }
+    public function editar(int $id): void
+    {
+        $post = (new PostModelo())->buscaPorId($id);
+        echo $this->template->renderizar(
+            'posts/formulario.html',
+            [
+                'post' => $post,
+                'categorias' => (new CategoriaModelo())->busca()
+            ]
+        );
+    }
 }
