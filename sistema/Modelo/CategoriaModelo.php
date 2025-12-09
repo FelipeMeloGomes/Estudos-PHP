@@ -37,4 +37,11 @@ class CategoriaModelo
 
         return $resultado;
     }
+
+    public function armazenar(array $dados): void
+    {
+        $query = "INSERT INTO `categorias` (`titulo`, `texto`, `status`) VALUES (:titulo, :texto, :status);";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute($dados);
+    }
 }

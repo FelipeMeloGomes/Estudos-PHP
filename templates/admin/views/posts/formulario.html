@@ -32,16 +32,23 @@
               class="form-select"
               aria-label="categoria_id"
               id="categoria_id"
+              name="categoria_id"
             >
-              <option value="1">Categoria 1</option>
-              <option value="2">Categoria 2</option>
+              {% for categoria in categorias %}
+              <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+              {% endfor %}
             </select>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="status" class="form-label">Status</label>
-            <select class="form-select" aria-label="status" id="status">
+            <select
+              class="form-select"
+              aria-label="status"
+              id="status"
+              name="status"
+            >
               <option value="1">Ativo</option>
               <option value="0">Desativado</option>
             </select>
