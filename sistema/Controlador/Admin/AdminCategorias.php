@@ -14,10 +14,18 @@ class AdminCategorias extends AdminControlador
 {
     public function listar(): void
     {
+        $categoria = new CategoriaModelo();
         echo $this->template->renderizar('categorias/listar.html', [
-            'categorias' => (new CategoriaModelo())->findAll()
+            'categorias' => $categoria->findAll(),
+            'total' => [
+                'total' => $categoria->count(),
+                'ativo' => $categoria->count('status = 1'),
+                'inativo' => $categoria->count('status = 0'),
+            ]
         ]);
     }
+
+
     public function cadastrar(): void
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);

@@ -2,6 +2,7 @@
 
 namespace sistema\Modelo;
 
+use IntlGregorianCalendar;
 use sistema\Nucleo\Conexao;
 
 /**
@@ -11,9 +12,10 @@ use sistema\Nucleo\Conexao;
  */
 class PostModelo
 {
-    public function findAll(): array
+    public function findAll(?string $termo = null): array
     {
-        $query = "SELECT * FROM posts WHERE status = 1 ORDER BY id DESC ";
+        $termo = ($termo ? "WHERE {$termo}" : '');
+        $query = "SELECT * FROM posts  {$termo}";
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
@@ -57,5 +59,15 @@ class PostModelo
         $query = "DELETE FROM posts WHERE id = {$id};";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute();
+    }
+
+    public function count(?string $termo = null): int
+    {
+        $termo = ($termo ? "WHERE {$termo}" : '');
+        $query = "SELECT * FROM posts  {$termo}";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute();
+
+        return $stmt->rowCount();
     }
 }
