@@ -16,7 +16,7 @@ class AdminPosts extends AdminControlador
     public function listar(): void
     {
         echo $this->template->renderizar('posts/listar.html', [
-            'posts' => (new PostModelo())->busca()
+            'posts' => (new PostModelo())->findAll()
         ]);
     }
 
@@ -24,20 +24,33 @@ class AdminPosts extends AdminControlador
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new PostModelo())->armazenar($dados);
+            (new PostModelo())->create($dados);
             Helpers::redirecionar('admin/posts/listar');
         }
-        echo $this->template->renderizar('posts/formulario.html', ['categorias' => (new CategoriaModelo())->busca()]);
+        echo $this->template->renderizar('posts/formulario.html', ['categorias' => (new CategoriaModelo())->findAll()]);
     }
+
     public function editar(int $id): void
     {
-        $post = (new PostModelo())->buscaPorId($id);
+        $post = (new PostModelo())->find($id);
+
+        $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
+        if (isset($dados)) {
+            (new PostModelo())->update($dados, $id);
+            Helpers::redirecionar('admin/posts/listar');
+        }
         echo $this->template->renderizar(
             'posts/formulario.html',
             [
                 'post' => $post,
-                'categorias' => (new CategoriaModelo())->busca()
+                'categorias' => (new CategoriaModelo())->findAll()
             ]
         );
+    }
+
+    public function deletar(int $id): void
+    {
+        (new PostModelo())->delete($id);
+        Helpers::redirecionar('admin/posts/listar');
     }
 }

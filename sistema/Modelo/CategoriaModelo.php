@@ -11,7 +11,7 @@ use sistema\Nucleo\Conexao;
  */
 class CategoriaModelo
 {
-    public function busca(): array
+    public function findAll(): array
     {
         $query = "SELECT * FROM categorias WHERE status = 1 ORDER BY titulo ASC ";
         $stmt = Conexao::getInstancia()->query($query);
@@ -20,7 +20,7 @@ class CategoriaModelo
         return $resultado;
     }
 
-    public function buscaPorId(int $id): bool|object
+    public function find(int $id): bool|object
     {
         $query = "SELECT * FROM categorias WHERE id = {$id} ";
         $stmt = Conexao::getInstancia()->query($query);
@@ -38,10 +38,24 @@ class CategoriaModelo
         return $resultado;
     }
 
-    public function armazenar(array $dados): void
+    public function create(array $dados): void
     {
-        $query = "INSERT INTO `categorias` (`titulo`, `texto`, `status`) VALUES (:titulo, :texto, :status);";
+        $query = "INSERT INTO categorias (titulo, texto, status) VALUES (:titulo, :texto, :status);";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute($dados);
+    }
+
+    public function update(array $dados, int $id): void
+    {
+        $query = "UPDATE categorias SET titulo = :titulo, texto = :titulo, status = :status WHERE id = {$id}";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute($dados);
+    }
+
+    public function delete(int $id): void
+    {
+        $query = "DELETE FROM categorias WHERE id = {$id};";
+        $stmt = Conexao::getInstancia()->prepare($query);
+        $stmt->execute();
     }
 }

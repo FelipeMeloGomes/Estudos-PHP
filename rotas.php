@@ -20,19 +20,15 @@ try {
 
         //ADMIN POSTS
         Router::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');
-
-        //ADMIN POSTS CADASTRAR
         Router::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
-        //ADMIN POSTS EDITAR
         Router::match(['get', 'post'], URL_ADMIN . 'posts/editar/{id}', 'AdminPosts@editar');
+        Router::get(URL_ADMIN . 'posts/deletar/{id}', 'AdminPosts@deletar');
 
         //ADMIN CATEGORIAS
         Router::get(URL_ADMIN . 'categorias/listar', 'AdminCategorias@listar');
-
-        //ADMIN CATEGORIAS CADASTRAR
         Router::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
-        //ADMIN CATEGORIAS EDITAR
         Router::match(['get', 'post'], URL_ADMIN . 'categorias/editar/{id}', 'AdminCategorias@editar');
+        Router::get(URL_ADMIN . 'categorias/deletar/{id}', 'AdminCategorias@deletar');
     });
 
     Router::start();

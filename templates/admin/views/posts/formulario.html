@@ -10,10 +10,10 @@
 </nav>
 <div class="card border-0 shadow-sm">
   <div class="card-body">
-    <form action="{{url('admin/posts/cadastrar')}}" method="post">
+    <form action="{% if post.id  %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%} " method="post">
       <div class="mb-3">
         <label for="titulo" class="form-label">Título</label>
-        <input type="text" name="titulo" class="form-control" id="titulo" />
+        <input type="text" name="titulo" class="form-control" id="titulo"  value="{{post.titulo}}" />
       </div>
       <div class="mb-3">
         <label for="texto" class="form-label">Texto</label>
@@ -22,7 +22,7 @@
           class="form-control"
           id="texto"
           rows="3"
-        ></textarea>
+        >{{post.texto}}</textarea>
       </div>
       <div class="row">
         <div class="col-md-6">
@@ -35,7 +35,7 @@
               name="categoria_id"
             >
               {% for categoria in categorias %}
-              <option value="{{categoria.id}}">{{categoria.titulo}}</option>
+              <option value="{{categoria.id}}" {% if post.categoria_id == categoria.id %}selected{%endif%}>{{categoria.titulo}}</option>
               {% endfor %}
             </select>
           </div>
@@ -49,14 +49,14 @@
               id="status"
               name="status"
             >
-              <option value="1">Ativo</option>
-              <option value="0">Desativado</option>
+             <option value="1" {% if post.status == '1' %}selected{%endif%}>Ativo</option>
+             <option value="0" {% if post.status == '0' %}selected{%endif%}>Desativado</option>
             </select>
           </div>
         </div>
       </div>
 
-      <input type="submit" class="btn btn-primary" value="Cadastrar" />
+      <input type="submit" class="btn btn-primary" value="{% if post.id  %}Atualizar{%else%}Cadastrar{%endif%}" />
     </form>
   </div>
 </div>
