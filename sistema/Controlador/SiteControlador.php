@@ -21,45 +21,44 @@ class SiteControlador extends Controlador
      */
     public function index(): void
     {
-        $posts = (new PostModelo())->busca();
-        
+        $posts = (new PostModelo())->busca("status = 1");
+
         echo $this->template->renderizar('index.html', [
-            'posts' => $posts,
+            'posts' => $posts->resultado(true),
             'categorias' => $this->categorias(),
         ]);
     }
-    
-    public function buscar():void
+
+    public function buscar(): void
     {
-        $busca = filter_input(INPUT_POST,'busca', FILTER_DEFAULT);
-        if(isset($busca)){
-            $posts = (new PostModelo())->pesquisa($busca);
-            
-            foreach ($posts as $post){
-                echo "<li class='list-group-item fw-bold'><a href=".Helpers::url('post/').$post->id.">$post->titulo</a></li>";
+        $busca = filter_input(INPUT_POST, 'busca', FILTER_DEFAULT);
+        if (isset($busca)) {
+            $posts = (new PostModelo())->busca("status = 1 AND titulo LIKE '%{$busca}%'")->resultado(true);
+
+            foreach ($posts as $post) {
+                echo "<li class='list-group-item fw-bold'><a href=" . Helpers::url('post/') . $post->id . ">$post->titulo</a></li>";
             }
         }
-        
     }
-    
+
     /**
      * Busca post por ID
      * @param int $id
      * @return void
      */
-    public function post(int $id):void
+    public function post(int $id): void
     {
         $post = (new PostModelo())->buscaPorId($id);
-        if(!$post){
+        if (!$post) {
             Helpers::redirecionar('404');
         }
-        
+
         echo $this->template->renderizar('post.html', [
             'post' => $post,
             'categorias' => $this->categorias(),
         ]);
     }
-    
+
     /**
      * Categorias
      * @return array
@@ -69,16 +68,16 @@ class SiteControlador extends Controlador
         return (new CategoriaModelo())->busca();
     }
 
-    public function categoria(int $id):void
+    public function categoria(int $id): void
     {
         $posts = (new CategoriaModelo())->posts($id);
-        
+
         echo $this->template->renderizar('categoria.html', [
             'posts' => $posts,
             'categorias' => $this->categorias(),
         ]);
     }
-    
+
     /**
      * Sobre
      * @return void
@@ -89,7 +88,7 @@ class SiteControlador extends Controlador
             'titulo' => 'Sobre nós'
         ]);
     }
-    
+
     /**
      * ERRO 404
      * @return void
@@ -100,5 +99,4 @@ class SiteControlador extends Controlador
             'titulo' => 'Página não encontrada'
         ]);
     }
-
 }

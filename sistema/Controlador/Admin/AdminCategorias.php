@@ -16,11 +16,11 @@ class AdminCategorias extends AdminControlador
     {
         $categoria = new CategoriaModelo();
         echo $this->template->renderizar('categorias/listar.html', [
-            'categorias' => $categoria->findAll(),
+            'categorias' => $categoria->busca(),
             'total' => [
-                'total' => $categoria->count(),
-                'ativo' => $categoria->count('status = 1'),
-                'inativo' => $categoria->count('status = 0'),
+                'total' => $categoria->total(),
+                'ativo' => $categoria->total('status = 1'),
+                'inativo' => $categoria->total('status = 0'),
             ]
         ]);
     }
@@ -30,7 +30,7 @@ class AdminCategorias extends AdminControlador
     {
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new CategoriaModelo())->create($dados);
+            (new CategoriaModelo())->armazenar($dados);
             $this->mensagem->success('Categoria cadastrada com sucesso')->flash();
             Helpers::redirecionar('admin/categorias/listar');
         }
@@ -39,11 +39,11 @@ class AdminCategorias extends AdminControlador
 
     public function editar(int $id): void
     {
-        $categoria = (new CategoriaModelo())->find($id);
+        $categoria = (new CategoriaModelo())->buscaPorId($id);
 
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
-            (new CategoriaModelo())->update($dados, $id);
+            (new CategoriaModelo())->atualizar($dados, $id);
             $this->mensagem->edit('Categoria Editada com sucesso')->flash();
             Helpers::redirecionar('admin/categorias/listar');
         }
@@ -53,7 +53,7 @@ class AdminCategorias extends AdminControlador
 
     public function deletar(int $id): void
     {
-        (new CategoriaModelo())->delete($id);
+        (new CategoriaModelo())->deletar($id);
         $this->mensagem->alert('Categoria Apagada com sucesso')->flash();
         Helpers::redirecionar('admin/categorias/listar');
     }

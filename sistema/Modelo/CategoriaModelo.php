@@ -5,23 +5,24 @@ namespace sistema\Modelo;
 use sistema\Nucleo\Conexao;
 
 /**
- * Classe Categoria Modelo
+ * Classe CategoriaModelo
  *
  * @author Felipe Melo
  */
 class CategoriaModelo
 {
-    public function findAll(?string $termo = null): array
+    public function busca(?string $termo = null): array
     {
         $termo = ($termo ? "WHERE {$termo}" : '');
-        $query = "SELECT * FROM categorias  {$termo}";
+
+        $query = "SELECT * FROM categorias {$termo} ";
         $stmt = Conexao::getInstancia()->query($query);
         $resultado = $stmt->fetchAll();
 
         return $resultado;
     }
 
-    public function find(int $id): bool|object
+    public function buscaPorId(int $id): bool|object
     {
         $query = "SELECT * FROM categorias WHERE id = {$id} ";
         $stmt = Conexao::getInstancia()->query($query);
@@ -39,31 +40,32 @@ class CategoriaModelo
         return $resultado;
     }
 
-    public function create(array $dados): void
+    public function armazenar(array $dados): void
     {
-        $query = "INSERT INTO categorias (titulo, texto, status) VALUES (:titulo, :texto, :status);";
+        $query = "INSERT INTO `categorias` (`titulo`, `texto`, `status`) VALUES (?, ?, ?)";
         $stmt = Conexao::getInstancia()->prepare($query);
-        $stmt->execute($dados);
+        $stmt->execute([$dados['titulo'], $dados['texto'], $dados['status']]);
     }
 
-    public function update(array $dados, int $id): void
+    public function atualizar(array $dados, int $id): void
     {
-        $query = "UPDATE categorias SET titulo = :titulo, texto = :titulo, status = :status WHERE id = {$id}";
+        $query = "UPDATE categorias SET titulo = ?, texto = ?, status = ? WHERE id = {$id} ";
         $stmt = Conexao::getInstancia()->prepare($query);
-        $stmt->execute($dados);
+        $stmt->execute([$dados['titulo'], $dados['texto'], $dados['status']]);
     }
 
-    public function delete(int $id): void
+    public function deletar(int $id): void
     {
-        $query = "DELETE FROM categorias WHERE id = {$id};";
+        $query = "DELETE FROM categorias WHERE id = {$id} ";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute();
     }
 
-    public function count(?string $termo = null): int
+    public function total(?string $termo = null): int
     {
         $termo = ($termo ? "WHERE {$termo}" : '');
-        $query = "SELECT * FROM categorias  {$termo}";
+
+        $query = "SELECT * FROM categorias {$termo}";
         $stmt = Conexao::getInstancia()->prepare($query);
         $stmt->execute();
 

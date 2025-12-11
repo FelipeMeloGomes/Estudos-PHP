@@ -2,72 +2,18 @@
 
 namespace sistema\Modelo;
 
-use IntlGregorianCalendar;
-use sistema\Nucleo\Conexao;
+use sistema\Nucleo\Modelo;
 
 /**
  * Classe PostModelo
  *
  * @author Felipe Melo
  */
-class PostModelo
+class PostModelo extends Modelo
 {
-    public function findAll(?string $termo = null): array
+
+    public function __construct()
     {
-        $termo = ($termo ? "WHERE {$termo}" : '');
-        $query = "SELECT * FROM posts  {$termo}";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-
-        return $resultado;
-    }
-
-    public function find(int $id): bool|object
-    {
-        $query = "SELECT * FROM posts WHERE id = {$id} ";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetch();
-
-        return $resultado;
-    }
-
-    public function search(string $busca): array
-    {
-        $query = "SELECT * FROM posts WHERE status = 1 AND titulo LIKE '%{$busca}%' ";
-        $stmt = Conexao::getInstancia()->query($query);
-        $resultado = $stmt->fetchAll();
-
-        return $resultado;
-    }
-
-    public function create(array $dados): void
-    {
-        $query = "INSERT INTO posts (categoria_id, titulo, texto, status) VALUES (:categoria_id, :titulo, :texto, :status);";
-        $stmt = Conexao::getInstancia()->prepare($query);
-        $stmt->execute($dados);
-    }
-
-    public function update(array $dados, int $id): void
-    {
-        $query = "UPDATE posts SET categoria_id = :categoria_id, titulo = :titulo, texto = :texto, status = :status WHERE id = {$id};";
-        $stmt = Conexao::getInstancia()->prepare($query);
-        $stmt->execute($dados);
-    }
-
-    public function delete(int $id): void
-    {
-        $query = "DELETE FROM posts WHERE id = {$id};";
-        $stmt = Conexao::getInstancia()->prepare($query);
-        $stmt->execute();
-    }
-
-    public function count(?string $termo = null): int
-    {
-        $termo = ($termo ? "WHERE {$termo}" : '');
-        $query = "SELECT * FROM posts  {$termo}";
-        $stmt = Conexao::getInstancia()->prepare($query);
-        $stmt->execute();
-
-        return $stmt->rowCount();
+        parent::__construct('posts');
     }
 }
