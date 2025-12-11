@@ -17,7 +17,7 @@ class Template
     {
         $loader = new \Twig\Loader\FilesystemLoader($diretorio);
         $this->twig = new \Twig\Environment($loader);
-        
+
         $lexer = new Lexer($this->twig, array(
             $this->helpers()
         ));
@@ -48,21 +48,25 @@ class Template
     {
         array(
             $this->twig->addFunction(
-                    new \Twig\TwigFunction('url', function (string $url = null) {
-                                return Helpers::url($url);
-                            })
+                new \Twig\TwigFunction('url', function (string $url = null) {
+                    return Helpers::url($url);
+                })
             ),
             $this->twig->addFunction(
-                    new \Twig\TwigFunction('saudacao', function () {
-                                return Helpers::saudacao();
-                            })
+                new \Twig\TwigFunction('saudacao', function () {
+                    return Helpers::saudacao();
+                })
             ),
             $this->twig->addFunction(
-                    new \Twig\TwigFunction('resumirTexto', function (string $texto, int $limite) {
-                                return Helpers::resumirTexto($texto, $limite);
-                            })
+                new \Twig\TwigFunction('resumirTexto', function (string $texto, int $limite) {
+                    return Helpers::resumirTexto($texto, $limite);
+                })
+            ),
+            $this->twig->addFunction(
+                new \Twig\TwigFunction('flash', function () {
+                    return Helpers::flash();
+                })
             ),
         );
     }
-
 }

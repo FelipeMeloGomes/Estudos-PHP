@@ -22,7 +22,7 @@ class Mensagem
      * @param string $mensagem
      * @return Mensagem
      */
-    public function sucesso(string $mensagem): Mensagem
+    public function success(string $mensagem): Mensagem
     {
         $this->css = 'alert alert-success';
         $this->texto = $this->filtrar($mensagem);
@@ -34,7 +34,7 @@ class Mensagem
      * @param string $mensagem
      * @return Mensagem
      */
-    public function erro(string $mensagem): Mensagem
+    public function error(string $mensagem): Mensagem
     {
         $this->css = 'alert alert-danger';
         $this->texto = $this->filtrar($mensagem);
@@ -46,9 +46,21 @@ class Mensagem
      * @param string $mensagem
      * @return Mensagem
      */
-    public function alerta(string $mensagem): Mensagem
+    public function alert(string $mensagem): Mensagem
     {
         $this->css = 'alert alert-warning';
+        $this->texto = $this->filtrar($mensagem);
+        return $this;
+    }
+
+    /**
+     * Método responsável pelas mensagens de edição
+     * @param string $mensagem
+     * @return Mensagem
+     */
+    public function edit(string $mensagem): Mensagem
+    {
+        $this->css = 'alert alert-info';
         $this->texto = $this->filtrar($mensagem);
         return $this;
     }
@@ -82,5 +94,15 @@ class Mensagem
     private function filtrar(string $mensagem): string
     {
         return filter_var($mensagem, FILTER_SANITIZE_SPECIAL_CHARS);
+    }
+
+    /**
+     * Método responsável por filtrar as mensagens
+     * @param string $mensagem
+     * @return string
+     */
+    public function flash(): void
+    {
+        (new Sessao())->create('flash', $this);
     }
 }

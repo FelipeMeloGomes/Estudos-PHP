@@ -31,6 +31,7 @@ class AdminCategorias extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new CategoriaModelo())->create($dados);
+            $this->mensagem->success('Categoria cadastrada com sucesso')->flash();
             Helpers::redirecionar('admin/categorias/listar');
         }
         echo $this->template->renderizar('categorias/formulario.html', []);
@@ -43,6 +44,7 @@ class AdminCategorias extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
             (new CategoriaModelo())->update($dados, $id);
+            $this->mensagem->edit('Categoria Editada com sucesso')->flash();
             Helpers::redirecionar('admin/categorias/listar');
         }
 
@@ -52,6 +54,7 @@ class AdminCategorias extends AdminControlador
     public function deletar(int $id): void
     {
         (new CategoriaModelo())->delete($id);
+        $this->mensagem->alert('Categoria Apagada com sucesso')->flash();
         Helpers::redirecionar('admin/categorias/listar');
     }
 }
