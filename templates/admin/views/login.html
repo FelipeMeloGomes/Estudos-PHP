@@ -1,0 +1,42 @@
+{% extends "base.html" %} {% block corpo %}
+<div class="fundo15 p-3">
+  <div class="col-md-6 col-sm-6 col-lg-4 mx-auto">
+    <div class="card mt-5 p-3">
+      <h1 class="h3 mb-3 text-center">Painel Administrativo</h1>
+      <p class="text-center">
+        Informe seu login e senha para entrar no sistema.
+      </p>
+
+      {{flash()}}
+
+      <form action="{{url('admin/login')}}" method="post">
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            name="email"
+            class="form-control"
+            id="email"
+            placeholder="Email"
+            required
+          />
+          <label for="email">Email</label>
+        </div>
+        <div class="form-floating">
+          <input
+            type="password"
+            name="senha"
+            class="form-control"
+            id="senha"
+            placeholder="Senha"
+            required
+          />
+          <label for="senha">Senha</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-dark mt-3" type="submit">
+          Entrar
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -16,6 +16,11 @@ try {
     Router::get(URL_SITE . '404', 'SiteControlador@erro404');
 
     Router::group(['namespace' => 'Admin'], function () {
+
+        // ADMIN LOGIN
+        Router::match(['get', 'post'], URL_ADMIN . 'login', 'AdminLogin@login');
+
+        // DASHBOARD
         Router::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
 
         //ADMIN POSTS

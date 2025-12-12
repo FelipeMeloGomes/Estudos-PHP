@@ -19,9 +19,9 @@ class AdminPosts extends AdminControlador
         echo $this->template->renderizar('posts/listar.html', [
             'posts' => $post->busca()->ordem('status ASC, id DESC')->resultado(true),
             'total' => [
-                'total' => $post->total(),
-                'ativo' => $post->total('status = 1'),
-                'inativo' => $post->total('status = 0'),
+                'posts' => $post->total(),
+                'postsAtivo' => $post->busca('status = 1')->total(),
+                'postsInativo' => $post->busca('status = 0')->total(),
             ]
         ]);
     }
@@ -82,7 +82,7 @@ class AdminPosts extends AdminControlador
                 $this->mensagem->alert('O post que você está tentando deletar não existe!')->flash();
                 Helpers::redirecionar('admin/posts/listar');
             } else {
-                if ($post->apagar("id = {$id}")) {
+                if ($post->deletar()) {
                     $this->mensagem->success('Post Apagado com sucesso')->flash();
                     Helpers::redirecionar('admin/posts/listar');
                 } else {

@@ -192,6 +192,16 @@ class Modelo
     }
   }
 
+  public function deletar()
+  {
+    if (empty($this->id)) {
+      return false;
+    }
+
+    $deletar = $this->apagar("id = {$this->id}");
+    return $deletar;
+  }
+
   public function total(): int
   {
     $stmt = Conexao::getInstancia()->prepare($this->query);
