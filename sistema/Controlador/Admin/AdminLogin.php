@@ -2,8 +2,10 @@
 
 namespace sistema\Controlador\Admin;
 
+use sistema\Controlador\UsuarioControlador;
 use sistema\Nucleo\Controlador;
 use sistema\Nucleo\Helpers;
+use sistema\Modelo\UsuarioModelo;
 
 /**
  * Classe AdminLogin
@@ -19,25 +21,22 @@ class AdminLogin extends Controlador
 
   public function login(): void
   {
+    $usuario = UsuarioControlador::usuario();
+    if ($usuario && $usuario->level === 3) {
+      Helpers::redirecionar('admin/dashboard');
+    }
+
     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
     if (isset($dados)) {
-      if ($this->checarDados($dados)) {
-        $this->mensagem->success('dados válidos')->flash();
+      if (in_array('', $dados)) {
+        $this->mensagem->alert('Todos os campos são obrigatórios')->flash();
+      } else {
+        $usuario = (new UsuarioModelo())->login($dados, 3);
+        if ($usuario) {
+          Helpers::redirecionar('admin/login');
+        }
       }
     }
     echo $this->template->renderizar('login.html', []);
-  }
-
-  private function checarDados(array $dados): bool
-  {
-    if (empty($dados['email'])) {
-      $this->mensagem->alert('Campo Email é obrigatório')->flash();
-      return false;
-    }
-    if (empty($dados['senha'])) {
-      $this->mensagem->alert('Campo Senha é obrigatório')->flash();
-      return false;
-    }
-    return true;
   }
 }

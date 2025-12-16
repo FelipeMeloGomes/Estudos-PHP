@@ -22,6 +22,7 @@ try {
 
         // DASHBOARD
         Router::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
+        Router::get(URL_ADMIN . 'sair', 'AdminDashboard@sair');
 
         //ADMIN POSTS
         Router::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');

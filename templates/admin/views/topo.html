@@ -13,7 +13,7 @@
       data-bs-display="static"
       aria-expanded="false"
     >
-      <i class="fa-solid fa-user me-2"></i> Felipe Melo
+      <i class="fa-solid fa-user me-2"></i>{{usuario().nome}}
     </button>
     <ul class="dropdown-menu dropdown-menu-lg-end">
       <li>
@@ -24,7 +24,7 @@
       <li>
         <a
           class="dropdown-item text-danger"
-          href="#"
+          href="{{url('admin/sair')}}"
           tooltip="tooltip"
           title="Sair do Sistema"
         >
