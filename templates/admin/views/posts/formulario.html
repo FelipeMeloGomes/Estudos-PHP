@@ -8,6 +8,7 @@
     <li class="breadcrumb-item active" aria-current="page">Posts</li>
   </ol>
 </nav>
+{{flash()}}
 <div class="card border-0 shadow-sm">
   <div class="card-body">
     <form action="{% if post.id  %}{{url('admin/posts/editar/'~post.id)}}{%else%}{{url('admin/posts/cadastrar')}}{%endif%} " method="post">

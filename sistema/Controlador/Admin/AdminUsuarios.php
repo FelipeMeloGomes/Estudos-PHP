@@ -55,6 +55,7 @@ class AdminUsuarios extends AdminControlador
                     $usuario->senha = Helpers::gerarSenha($dados['senha']);
                     $usuario->level = $dados['level'];
                     $usuario->status = $dados['status'];
+                    $usuario->atualizado_em = date('Y-m-d H:i:s');
 
                     if ($usuario->salvar()) {
                         $this->mensagem->success('Usuário cadastrado com sucesso')->flash();

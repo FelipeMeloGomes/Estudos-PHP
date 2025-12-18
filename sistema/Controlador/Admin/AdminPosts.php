@@ -31,20 +31,22 @@ class AdminPosts extends AdminControlador
         $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
         if (isset($dados)) {
 
-            $post = new PostModelo();
+            if ($this->validarDados($dados)) {
+                $post = new PostModelo();
 
-            $post->categoria_id = $dados['categoria_id'];
-            $post->titulo = $dados['titulo'];
-            $post->texto = $dados['texto'];
-            $post->status = $dados['status'];
+                $post->categoria_id = $dados['categoria_id'];
+                $post->titulo = $dados['titulo'];
+                $post->texto = $dados['texto'];
+                $post->status = $dados['status'];
 
-            if ($post->salvar()) {
-                $this->mensagem->success('Post cadastrado com sucesso')->flash();
-                Helpers::redirecionar('admin/posts/listar');
+                if ($post->salvar()) {
+                    $this->mensagem->success('Post cadastrado com sucesso')->flash();
+                    Helpers::redirecionar('admin/posts/listar');
+                }
             }
         }
         echo $this->template->renderizar('posts/formulario.html', [
-            'categorias' => (new CategoriaModelo())->busca()
+            'categorias' => (new CategoriaModelo())->busca()->resultado(true)
         ]);
     }
 
@@ -64,14 +66,31 @@ class AdminPosts extends AdminControlador
             if ($post->salvar()) {
                 $this->mensagem->success('Post atualizado com sucesso')->flash();
                 Helpers::redirecionar('admin/posts/listar');
+            } else {
+                $this->mensagem->error($post->erro())->flash();
+                Helpers::redirecionar('admin/posts/listar');
             }
         }
 
         echo $this->template->renderizar('posts/formulario.html', [
             'post' => $post,
-            'categorias' => (new CategoriaModelo())->busca()
+            'categorias' => (new CategoriaModelo())->busca()->resultado(true)
         ]);
     }
+
+    private function validarDados(array $dados): bool
+    {
+        if (empty($dados['titulo'])) {
+            $this->mensagem->alert('Escreva um título para o post!')->flash();
+            return false;
+        }
+        if (empty($dados['texto'])) {
+            $this->mensagem->alert('Escreva um texto para o post!')->flash();
+            return false;
+        }
+        return true;
+    }
+
 
     public function deletar(int $id): void
     {
