@@ -24,13 +24,19 @@ try {
         Router::get(URL_ADMIN . 'dashboard', 'AdminDashboard@dashboard');
         Router::get(URL_ADMIN . 'sair', 'AdminDashboard@sair');
 
-        //ADMIN POSTS
+        // ADMIN USUARIOS
+        Router::get(URL_ADMIN . 'usuarios/listar', 'AdminUsuarios@listar');
+        Router::match(['get', 'post'], URL_ADMIN . 'usuarios/cadastrar', 'AdminUsuarios@cadastrar');
+        Router::match(['get', 'post'], URL_ADMIN . 'usuarios/editar/{id}', 'AdminUsuarios@editar');
+        Router::get(URL_ADMIN . 'usuarios/deletar/{id}', 'AdminUsuarios@deletar');
+
+        // ADMIN POSTS
         Router::get(URL_ADMIN . 'posts/listar', 'AdminPosts@listar');
         Router::match(['get', 'post'], URL_ADMIN . 'posts/cadastrar', 'AdminPosts@cadastrar');
         Router::match(['get', 'post'], URL_ADMIN . 'posts/editar/{id}', 'AdminPosts@editar');
         Router::get(URL_ADMIN . 'posts/deletar/{id}', 'AdminPosts@deletar');
 
-        //ADMIN CATEGORIAS
+        // ADMIN CATEGORIAS
         Router::get(URL_ADMIN . 'categorias/listar', 'AdminCategorias@listar');
         Router::match(['get', 'post'], URL_ADMIN . 'categorias/cadastrar', 'AdminCategorias@cadastrar');
         Router::match(['get', 'post'], URL_ADMIN . 'categorias/editar/{id}', 'AdminCategorias@editar');

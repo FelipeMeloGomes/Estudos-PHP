@@ -4,6 +4,7 @@ namespace sistema\Modelo;
 
 use sistema\Nucleo\Modelo;
 use sistema\Nucleo\Sessao;
+use sistema\Nucleo\Helpers;
 
 /**
  * Classe UsuarioModelo
@@ -33,7 +34,7 @@ class UsuarioModelo extends Modelo
       $this->mensagem()->alert("Dados incorretos")->flash();
     }
 
-    if ($dados['senha'] != $usuario->senha) {
+    if (!Helpers::verificarSenha($dados['senha'], $usuario->senha)) {
       $this->mensagem()->alert("Senha incorreta")->flash();
       return false;
     }
@@ -54,6 +55,17 @@ class UsuarioModelo extends Modelo
     (new Sessao())->create('usuarioId', $usuario->id);
 
     $this->mensagem()->success("{$usuario->nome}, seja bem vindo(a) ao painel de controle")->flash();
+
+    return true;
+  }
+
+  public function salvar(): bool
+  {
+    if ($this->busca("email = :e AND id != :id", "e={$this->email}&id={$this->id}")->resultado()) {
+      $this->mensagem->alert("O e-mail " . $this->dados->email . " já está cadastrado");
+      return false;
+    }
+    parent::salvar();
 
     return true;
   }

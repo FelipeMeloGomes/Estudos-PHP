@@ -7,6 +7,26 @@ use sistema\Nucleo\Sessao;
 
 class Helpers
 {
+
+    public static function validarSenha(string $senha): bool
+    {
+        if (mb_strlen($senha) >= 6 && mb_strlen($senha) <= 50) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function gerarSenha(string $senha): string
+    {
+        return password_hash($senha, PASSWORD_DEFAULT, ['cost' => 10]);
+    }
+
+    public static function verificarSenha(string $senha, string $hash): bool
+    {
+        return password_verify($senha, $hash);
+    }
+
     public static function flash(): ?string
     {
         $sessao = new Sessao();
